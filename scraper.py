@@ -1,5 +1,6 @@
 import os
 from dotenv import load_dotenv
+from database import insert_news
 
 load_dotenv()
 
@@ -7,6 +8,7 @@ import selenium
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
+
 
 URL = os.getenv("URL")
 news= []
@@ -20,7 +22,7 @@ elements = driver.find_elements(By.XPATH,"//div[contains(@class,'_evt')]/h2//a")
 
 
 if __name__=="__main__":
-    for element in elements[:5]:
+    for element in elements:
         titulo = element.text
         link = element.get_attribute("href")
         news.append({
@@ -29,3 +31,4 @@ if __name__=="__main__":
             "descricao": "(IMPLEMENTAR)",
             "link": link
         })
+    insert_news(news)
