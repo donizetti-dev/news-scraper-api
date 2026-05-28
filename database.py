@@ -16,6 +16,7 @@ def get_connection():
 def insert_news(noticias):
     conn = get_connection()
     cursor = conn.cursor()
+    
     for noticia in noticias:
         cursor.execute(
             f"""IF NOT EXISTS (SELECT TOP 1 * FROM [dbo].[tbl_NEWS] WHERE TITULO = '{noticia["titulo"]}')

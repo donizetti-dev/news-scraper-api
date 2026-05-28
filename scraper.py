@@ -22,7 +22,7 @@ elements = driver.find_elements(By.XPATH,"//div[contains(@class,'_evt')]/h2//a")
 
 
 if __name__=="__main__":
-    for element in elements:
+    for element in elements[:5]:
         titulo = element.text
         link = element.get_attribute("href")
         news.append({
