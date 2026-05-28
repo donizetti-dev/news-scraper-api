@@ -91,6 +91,4 @@ def get_idrow(id):
     return data_news
 
 
-if __name__=="__main__":
-    print(get_idrow(32))
 
