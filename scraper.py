@@ -13,15 +13,24 @@ from selenium.webdriver.chrome.options import Options
 URL = os.getenv("URL")
 news= []
 
-options = Options()
-options.add_argument("--headless=new")
+def navigate():
+    options = Options()
+    options.add_argument("--headless=new")
 
-driver = webdriver.Chrome(options = options)
-driver.get(URL)
-elements = driver.find_elements(By.XPATH,"//div[contains(@class,'_evt')]/h2//a")
+    driver = webdriver.Chrome(options = options)
+    driver.get(URL)
+    return driver
+
+def scraper_news():
+    driver = navigate()
+
+    items = driver.find_elements(By.XPATH,"//div[contains(@class,'_evt')]/h2//a")
+
+    return items
 
 
-if __name__=="__main__":
+def main():
+    elements = scraper_news()
     for element in elements[:5]:
         titulo = element.text
         link = element.get_attribute("href")
@@ -31,4 +40,9 @@ if __name__=="__main__":
             "descricao": "(IMPLEMENTAR)",
             "link": link
         })
+
     insert_news(news)
+
+
+if __name__=="__main__":
+    main()
