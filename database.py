@@ -14,6 +14,7 @@ def get_connection():
     return conn
 
 def insert_news(noticias):
+
     conn = get_connection()
     cursor = conn.cursor()
     
@@ -29,3 +30,31 @@ def insert_news(noticias):
         )
     conn.commit()
     conn.close()
+
+def get_news():
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""SELECT TITULO,
+                    SUBTITULO,                           
+                    DESCRICAO,
+                    LINK,
+                    CONCAT('',DATA_EXECUCAO) AS DATA_EXECUCAO 
+                    FROM [NoticiasDB].[dbo].[tbl_NEWS]
+                   """)
+    
+    rows = cursor.fetchall()
+    data_news = []
+
+    for row in rows:
+
+        data_news.append({
+            "title":row.TITULO,
+            "caption":row.SUBTITULO,
+            "description":row.DESCRICAO,
+            "link":row.LINK,
+            "execution_date":row.DATA_EXECUCAO
+        })
+
+    return data_news
+
