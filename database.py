@@ -35,7 +35,8 @@ def get_news():
     conn = get_connection()
     cursor = conn.cursor()
 
-    cursor.execute("""SELECT TITULO,
+    cursor.execute("""SELECT ID,
+                   TITULO,
                     SUBTITULO,                           
                     DESCRICAO,
                     LINK,
@@ -49,6 +50,7 @@ def get_news():
     for row in rows:
 
         data_news.append({
+            "id":row.ID,
             "title":row.TITULO,
             "caption":row.SUBTITULO,
             "description":row.DESCRICAO,
@@ -57,4 +59,38 @@ def get_news():
         })
 
     return data_news
+
+def get_idrow(id):
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute(f"""SELECT ID,
+                   TITULO,
+                    SUBTITULO,                           
+                    DESCRICAO,
+                    LINK,
+                    CONCAT('',DATA_EXECUCAO) AS DATA_EXECUCAO 
+                    FROM [NoticiasDB].[dbo].[tbl_NEWS]
+                   WHERE ID = {id}
+                   """)
+    
+    rows = cursor.fetchall()
+    data_news = []
+
+    for row in rows:
+
+        data_news.append({
+            "id":row.ID,
+            "title":row.TITULO,
+            "caption":row.SUBTITULO,
+            "description":row.DESCRICAO,
+            "link":row.LINK,
+            "execution_date":row.DATA_EXECUCAO
+        })
+
+    return data_news
+
+
+if __name__=="__main__":
+    print(get_idrow(32))
 
