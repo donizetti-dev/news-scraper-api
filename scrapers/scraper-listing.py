@@ -9,20 +9,21 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 
+import time
 
 URL = os.getenv("URL")
 news= []
 
-def navigate():
+def navigate(link):
     options = Options()
     options.add_argument("--headless=new")
 
     driver = webdriver.Chrome(options = options)
-    driver.get(URL)
+    driver.get(link)
     return driver
 
 def scraper_news():
-    driver = navigate()
+    driver = navigate(URL)
 
     items = driver.find_elements(By.XPATH,"//div[contains(@class,'_evt')]/h2//a")
 
@@ -32,8 +33,13 @@ def scraper_news():
 def main():
     elements = scraper_news()
     for element in elements[:5]:
+
         titulo = element.text
         link = element.get_attribute("href")
+        input(element)
+        element.click()
+        time.sleep(100)
+        input(element)
         news.append({
             "titulo": element.text,
             "subtitulo": "(IMPLEMENTAR)",
