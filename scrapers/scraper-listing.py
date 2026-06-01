@@ -1,6 +1,7 @@
 import os
 from dotenv import load_dotenv
 from database import insert_news
+from browser import get_driver
 
 load_dotenv()
 
@@ -14,16 +15,9 @@ import time
 URL = os.getenv("URL")
 news= []
 
-def navigate(link):
-    options = Options()
-    options.add_argument("--headless=new")
 
-    driver = webdriver.Chrome(options = options)
-    driver.get(link)
-    return driver
 
-def scraper_news():
-    driver = navigate(URL)
+def scraper_news(driver):
 
     items = driver.find_elements(By.XPATH,"//div[contains(@class,'_evt')]/h2//a")
 
@@ -31,7 +25,9 @@ def scraper_news():
 
 
 def main():
-    elements = scraper_news()
+    driver = get_driver(URL)
+
+    elements = scraper_news(driver)
     for element in elements[:5]:
 
         titulo = element.text
