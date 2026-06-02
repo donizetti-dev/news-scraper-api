@@ -1,4 +1,8 @@
+import sys
 import os
+root = os.path.abspath(os.path.join(os.path.dirname(__file__), '../..'))
+sys.path.append(root)
+
 from dotenv import load_dotenv
 from database import insert_news
 from browser import get_driver
@@ -28,21 +32,19 @@ def main():
     driver = get_driver(URL)
 
     elements = scraper_news(driver)
+    count = 0
     for element in elements[:5]:
 
-        titulo = element.text
+        titulo = element.text.replace("'",'"')
         link = element.get_attribute("href")
-        input(element)
-        element.click()
-        time.sleep(100)
-        input(element)
         news.append({
-            "titulo": element.text,
+            "titulo": titulo,
             "subtitulo": "(IMPLEMENTAR)",
             "descricao": "(IMPLEMENTAR)",
             "link": link
         })
-
+        count+=1
+        print(count)
     insert_news(news)
 
 

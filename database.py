@@ -90,5 +90,25 @@ def get_idrow(id):
 
     return data_news
 
+def query_pending():
+    conn = get_connection()
+    cursor = conn.cursor()
 
+    cursor.execute("""SELECT ID,TITULO,LINK 
+                    FROM [NoticiasDB].[dbo].[tbl_NEWS]
+                    WHERE SUBTITULO='PENDENTE' AND DESCRICAO='PENDENTE'
+                   """)
+    
+    rows = cursor.fetchall()
+    details_pending = []
+
+    for row in rows:
+
+        details_pending.append({
+            "id":row.ID,
+            "title":row.TITULO,
+            "link":row.LINK,
+        })
+
+    return details_pending
 
