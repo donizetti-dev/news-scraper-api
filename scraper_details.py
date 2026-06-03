@@ -36,9 +36,9 @@ def main():
         driver = get_driver(news['link'])
 
         dict_details = get_detail(driver)
-        logger.info(f'Identificado detalhes para notícia {dict_details['titulo']}')
+        logger.info(f'Identificado detalhes para notícia {dict_details["titulo"]}')
 
-        logger.info(f'Atualiza id {news['id']} com informações extraídas')
+        logger.info(f'Atualiza id {news["id"]} com informações extraídas')
         update_details(news['id'],dict_details)
 
         logger.info(f'Finaliza driver')
