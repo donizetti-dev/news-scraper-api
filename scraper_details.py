@@ -5,6 +5,9 @@ from selenium.webdriver.chrome.options import Options
 
 from database import query_pending, update_details
 from browser import get_driver
+from logger_config import logger
+
+
 
 
 def get_detail(driver):
@@ -20,6 +23,8 @@ def get_detail(driver):
 
 
 def main():
+    logger.info(f'{"="*30}{__name__}{"="*30}')
+    exit
     process = query_pending()
 
     for news in process:
