@@ -12,16 +12,31 @@ load_dotenv()
 import selenium
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
 
-import time
+from time import sleep
 
 URL = os.getenv("URL")
 news= []
 
+def load_page(driver):
+    count_loop = 30
+    for i in range(count_loop):
+        
+        qtd_news = len(scraper_news(driver))
+
+        if qtd_news>=30:
+            #30 notícias carregadas, seguindo processamento
+            break
 
 
-def scraper_news(driver):
+        driver.execute_script("document.querySelector('#feed-placeholder > div > div > div.load-more.gui-color-primary-bg > a').click()")
+
+        sleep(0.5)
+
+
+def scraper_news(driver) -> list:
 
     items = driver.find_elements(By.XPATH,"//div[contains(@class,'_evt')]/h2//a")
 
@@ -31,8 +46,10 @@ def scraper_news(driver):
 def main():
     driver = get_driver(URL)
 
+    load_page(driver)
+
     elements = scraper_news(driver)
-    for element in elements[:5]:
+    for element in elements[:30]:
 
         link = element.get_attribute("href")
         news.append({
@@ -41,7 +58,7 @@ def main():
             "descricao": "PENDENTE",
             "link": link
         })
-        count+=1
+
     insert_news(news)
 
 
