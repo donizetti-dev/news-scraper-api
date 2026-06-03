@@ -35,14 +35,15 @@ def update_details(id,details):
 
     conn = get_connection()
     cursor = conn.cursor()
-    
-    for detalhe in details:
-        cursor.execute(
-            f"""UPDATE [dbo].[tbl_NEWS] 
-            SET SUBTITULO = {detalhe['subtitulo']}, DESCRICAO = {detalhe['descricao']}
-            WHERE ID = {id}
-                """
-        )
+
+    cursor.execute(
+        f"""UPDATE [dbo].[tbl_NEWS] 
+        SET TITULO = '{details['titulo']}',
+        SUBTITULO = '{details['subtitulo']}',
+        DESCRICAO = '{details['descricao']}'
+        WHERE ID = {id}
+            """
+    )
     conn.commit()
     conn.close()
 
@@ -111,7 +112,7 @@ def query_pending():
 
     cursor.execute("""SELECT ID,TITULO,LINK 
                     FROM [NoticiasDB].[dbo].[tbl_NEWS]
-                    WHERE SUBTITULO='PENDENTE' AND DESCRICAO='PENDENTE'
+                    WHERE TITULO = 'PENDENTE'
                    """)
     
     rows = cursor.fetchall()

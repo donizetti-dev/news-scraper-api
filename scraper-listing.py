@@ -35,12 +35,11 @@ def main():
     count = 0
     for element in elements[:5]:
 
-        titulo = element.text.replace("'",'"')
         link = element.get_attribute("href")
         news.append({
-            "titulo": titulo,
-            "subtitulo": "(IMPLEMENTAR)",
-            "descricao": "(IMPLEMENTAR)",
+            "titulo": "PENDENTE",
+            "subtitulo": "PENDENTE",
+            "descricao": "PENDENTE",
             "link": link
         })
         count+=1

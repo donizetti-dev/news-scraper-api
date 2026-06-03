@@ -3,13 +3,36 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 
-from database import query_pending
+from database import query_pending, update_details
 from browser import get_driver
 
+
+def get_detail(driver):
+    caption = driver.find_elements(By.XPATH,"//h2[contains(@class,'content-head__subtitle')]")
+    description = driver.find_elements(By.XPATH,"//h2[contains(@class,'content-head__subtitle')]//ancestor::div[contains(@class,'mc-article-header')]//following::div[contains(@class,'mc-article-body')]//p[contains(@class,' content-text__container ')][1]")
+    title = driver.find_elements(By.XPATH,"//main[contains(@class,'mc-body theme')]//h1[contains(@class,'content-head__title')]")
+
+
+    return {'subtitulo':caption[0].text.replace("'",'"'),
+            'descricao':description[0].text.replace("'",'"'), 
+            'titulo':title[0].text.replace("'",'"')}
 
 
 
 def main():
-    driver = get_driver('url')
+    process = query_pending()
+
+    for news in process:
+        driver = get_driver(news['link'])
+
+        dict_details = (get_detail(driver))
+
+
+        update_details(news['id'],dict_details)
+
+        driver.quit()
+
+if __name__=='__main__':
+    main()
 
 
