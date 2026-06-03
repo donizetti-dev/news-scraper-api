@@ -28,7 +28,6 @@ def insert_news(noticias):
                 '{noticia['link']}')
                 """
         )
-        print('inserido')
     conn.commit()
     conn.close()
 
