@@ -75,13 +75,6 @@ Start the API:
 python app.py
 ```
 
-## Future Improvements
-
-- Automated tests
-- Docker support
-- Swagger documentation
-- CI/CD pipeline
-- Duplicate record validation
 
 ## Author
 
