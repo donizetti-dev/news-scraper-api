@@ -1,36 +1,88 @@
-# news-scraper-api
+# News Scraper API
 
-# News Collector API
+## About
 
-API para coleta e disponibilização de notícias utilizando Python, Flask e SQL Server.
+News Scraper API is a Python application that automates the collection of news articles from a website, stores the data in SQL Server, and exposes the information through a REST API built with Flask.
 
-## Tecnologias
+## Technologies
 
-* Python
-* Flask
-* SQL Server
+- Python
+- Flask
+- Selenium
+- SQL Server
+- PyODBC
+- Python Dotenv
 
-## Funcionalidades (em desenvolvimento)
+## Features
 
-* [ ] Coleta de notícias (web scraping)
-* [ ] Armazenamento em banco de dados
-* [ ] API para consulta dos dados
+- Automated news collection
+- Article detail extraction
+- SQL Server integration
+- REST API endpoints
+- Execution logging
 
-## Estrutura do Projeto
+## Project Structure
 
-```
-project/
+```text
+news-scraper-api/
 │
 ├── app.py
-├── scraper.py
 ├── database.py
-└── README.md
+├── browser.py
+├── scraper_listing.py
+├── scraper_details.py
+├── logger_config.py
+├── run_scrapers.py
+├── requirements.txt
+└── logs/
 ```
 
-## Como executar (em breve)
+## Installation
 
-Instruções serão adicionadas após implementação inicial.
+```bash
+git clone <repository-url>
+cd news-scraper-api
 
-## Licença
+python -m venv venv
+venv\Scripts\activate
 
-MIT License
+pip install -r requirements.txt
+```
+
+## Environment Variables
+
+Create a `.env` file:
+
+```env
+URL=https://example.com
+
+DB_DRIVER=ODBC Driver 17 for SQL Server
+DB_SERVER=localhost
+DB_NAME=NoticiasDB
+```
+
+## Running
+
+Run the complete scraping process:
+
+```bash
+python run_scrapers.py
+```
+
+Start the API:
+
+```bash
+python app.py
+```
+
+## Future Improvements
+
+- Automated tests
+- Docker support
+- Swagger documentation
+- CI/CD pipeline
+- Duplicate record validation
+
+## Author
+
+Donizetti Roberto
