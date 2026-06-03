@@ -31,6 +31,21 @@ def insert_news(noticias):
     conn.commit()
     conn.close()
 
+def update_details(id,details):
+
+    conn = get_connection()
+    cursor = conn.cursor()
+    
+    for detalhe in details:
+        cursor.execute(
+            f"""UPDATE [dbo].[tbl_NEWS] 
+            SET SUBTITULO = {detalhe['subtitulo']}, DESCRICAO = {detalhe['descricao']}
+            WHERE ID = {id}
+                """
+        )
+    conn.commit()
+    conn.close()
+
 def get_news():
     conn = get_connection()
     cursor = conn.cursor()
