@@ -17,10 +17,11 @@ def insert_news(noticias):
 
     conn = get_connection()
     cursor = conn.cursor()
-    #IF NOT EXISTS (SELECT TOP 1 * FROM [dbo].[tbl_NEWS] WHERE TITULO = '{noticia["titulo"]}')
+    #
     for noticia in noticias:
         cursor.execute(
             f"""
+            IF NOT EXISTS (SELECT TOP 1 * FROM [dbo].[tbl_NEWS] WHERE TITULO = '{noticia["titulo"]}')
                 INSERT INTO [dbo].[tbl_NEWS] (TITULO,SUBTITULO,DESCRICAO,LINK)
                 VALUES('{noticia['titulo']}',
                 '{noticia['subtitulo']}',
