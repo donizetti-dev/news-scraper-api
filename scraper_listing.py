@@ -32,7 +32,6 @@ def main():
     driver = get_driver(URL)
 
     elements = scraper_news(driver)
-    count = 0
     for element in elements[:5]:
 
         link = element.get_attribute("href")
@@ -43,7 +42,6 @@ def main():
             "link": link
         })
         count+=1
-        print(count)
     insert_news(news)
 
 
